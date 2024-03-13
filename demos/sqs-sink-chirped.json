@@ -1,0 +1,46 @@
+{
+  "config": {
+    "connector.class": "com.nordstrom.kafka.connect.sqs.SqsSinkConnector",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "name": "sqs-sink-cp",
+    "sqs.queue.url": "http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/poc",
+    "sqs.endpoint.url": "http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/poc",
+    "topics": "test-cp",
+    "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "sqs.credentials.provider.class":"com.nordstrom.kafka.connect.auth.AWSAssumeRoleCredentialsProvider",
+    "sqs.credentials.provider.role.arn":"arn:aws:iam::000000000000:role/kafka-connect-sqs-role",
+    "sqs.credentials.provider.session.name":"my-queue-session",
+    "sqs.credentials.provider.external.id":"my-queue-external-id"
+  },
+  "name": "sqs-sink-cp"
+}
+
+curl -X POST -H "Content-Type: application/json" --data '{
+  "config": {
+    "connector.class": "com.nordstrom.kafka.connect.sqs.SqsSinkConnector",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "name": "sqs-sink-cp",
+    "sqs.queue.url": "http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/poc",
+    "sqs.endpoint.url": "http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/poc",
+    "topics": "test-cp",
+    "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "sqs.credentials.provider.class":"com.nordstrom.kafka.connect.auth.AWSAssumeRoleCredentialsProvider",
+    "sqs.credentials.provider.role.arn":"arn:aws:iam::000000000000:role/kafka-connect-sqs-role",
+    "sqs.credentials.provider.session.name":"my-queue-session",
+    "sqs.credentials.provider.external.id":"my-queue-external-id"
+  },
+  "name": "sqs-sink-cp"
+}' http://localhost:8083/connectors
+
+curl -X POST -H "Content-Type: application/json" --data '{
+  "config": {
+    "connector.class": "com.nordstrom.kafka.connect.sqs.SqsSinkConnector",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "name": "sqs-sink-cp",
+    "sqs.queue.url": "http://172.25.0.2:4566/000000000000/poc",
+    "sqs.endpoint.url": "http://172.25.0.2:4566/000000000000/poc",
+    "topics": "test-cp",
+    "value.converter": "org.apache.kafka.connect.storage.StringConverter"
+  },
+  "name": "sqs-sink-cp"
+}' http://localhost:8083/connectors
